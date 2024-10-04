@@ -23,7 +23,10 @@ RUN apt-get update && apt-get install -y \
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update \
-    ccurl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
+    apt install -y software-properties-common \
+    apt-get install -y curl \
+    add-apt-repository universe \
+    curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null \
     && apt-get install -y \
     ros-foxy-desktop python3-argcomplete ros-dev-tools \
