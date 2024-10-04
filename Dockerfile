@@ -1,5 +1,4 @@
-# FROM amd64/ubuntu:20.04
-FROM arm64/cuda:11.4.3-runtime-ubi8
+FROM nvidia/cuda:11.4.3-runtime-ubi8
 
 ENV ROS_DISTRO=foxy
 ENV TZ=Asia/Vladivostok
@@ -9,7 +8,6 @@ WORKDIR /app/ros2_ws
 
 # ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
-
 
 # Install Base packages
 RUN apt-get update \ 
