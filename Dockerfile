@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.4.3-runtime-ubi8
+FROM nvidia/cuda-arm64:11.4.0-runtime-ubuntu20.04
 
 ENV ROS_DISTRO=foxy
 ENV TZ=Asia/Vladivostok
