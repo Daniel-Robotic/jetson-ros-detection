@@ -1,21 +1,45 @@
-FROM amd64/ubuntu:20.04
-# FROM arm64v8/ubuntu:20.04
+# FROM amd64/ubuntu:20.04
+FROM arm64/cuda:11.4.3-runtime-ubi8
+
+ENV ROS_DISTRO=foxy
+ENV TZ=Asia/Vladivostok
+ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
 
 WORKDIR /app/ros2_ws
 
-ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-ENV TZ=Asia/Vladivostok
-
+# ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
 
+
 # Install Base packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \ 
+    && apt-get install -y --no-install-recommends \
     tzdata \
+    build-essential \
+    cmake \
+	git \
+    libbullet-dev \
+    libpython3-dev \
+    python3-colcon-common-extensions \
+    python3-flake8 \
+    python3-pip \
+    python3-pytest-cov \
+    python3-rosdep \
+    python3-setuptools \
+    python3-vcstool \
+    python3-rosinstall-generator \
+    libasio-dev \
+    libtinyxml2-dev \
+    libcunit1-dev \
     python3-pip \
     python3-dev \
     git \
     curl \
-    software-properties-common
+    wget \
+    gnupg2 \
+    lsb-release \
+    software-properties-common \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install ROS
 RUN add-apt-repository universe \
@@ -32,4 +56,4 @@ RUN add-apt-repository universe \
     && rm -rf /var/lib/apt/lists/* \
     && /bin/bash -c "source /opt/ros/foxy/setup.bash"
 
-CMD ["bash", "-c", "source /apps/ros2_ws/install/setup.bash && ros2 run demo_nodes_cpp talker"]
+CMD ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
