@@ -1,59 +1,50 @@
-FROM nvidia/cuda-arm64:11.4.0-runtime-ubuntu20.04
+# Используем базовый образ NVIDIA L4T с поддержкой CUDA
+FROM nvcr.io/nvidia/l4t-base:r32.6.1
 
+# Устанавливаем переменные окружения для ROS 2
 ENV ROS_DISTRO=foxy
-ENV TZ=Asia/Vladivostok
-ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
+ENV ROS_PYTHON_VERSION=3
 
-WORKDIR /app/ros2_ws
+# Устанавливаем переменные окружения для CUDA
+ENV PATH=/usr/local/cuda/bin:${PATH}
+ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 
-# ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
+# Устанавливаем рабочую директорию
+WORKDIR /app/ws_ros2
 
-
-# Install Base packages
-RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/sbsa/7fa2af80.pub \ 
-    && apt-get update \ 
-    && apt-get install -y --no-install-recommends \
-    tzdata \
-    build-essential \
-    cmake \
-	git \
-    libbullet-dev \
-    libpython3-dev \
-    python3-colcon-common-extensions \
-    python3-flake8 \
-    python3-pip \
-    python3-pytest-cov \
-    python3-rosdep \
-    python3-setuptools \
-    python3-vcstool \
-    python3-rosinstall-generator \
-    libasio-dev \
-    libtinyxml2-dev \
-    libcunit1-dev \
-    python3-pip \
-    python3-dev \
-    git \
+# Устанавливаем необходимые зависимости
+RUN apt-get update && apt-get install -y \
     curl \
-    wget \
     gnupg2 \
     lsb-release \
     software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
-# Install ROS
-RUN add-apt-repository universe \
-    && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null \
-    && apt update \
-    && apt upgrade \
-    && apt install -y ros-foxy-desktop \ 
-        python3-argcomplete \
-        ros-foxy-ros-base \
-        python3-argcomplete \
-        ros-dev-tools \
-        ros-foxy-rmw-cyclonedds-cpp \
-    && rm -rf /var/lib/apt/lists/* \
-    && /bin/bash -c "source /opt/ros/foxy/setup.bash"
+# Добавляем репозиторий ROS 2
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+
+# Устанавливаем ROS 2 Foxy
+RUN apt-get update && apt-get install -y \
+    ros-foxy-desktop \
+    ros-dev-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+# Устанавливаем необходимые Python-пакеты
+RUN pip3 install --upgrade pip
+
+# Устанавливаем colcon для сборки ROS 2 пакетов
+RUN pip3 install colcon-common-extensions
+
+# Скачиваем и устанавливаем CUDA Toolkit
+RUN apt-get update && apt-get install -y \
+    cuda-toolkit-10-2 \
+    && rm -rf /var/lib/apt/lists/*
+
+    # Устанавливаем необходимые зависимости для ROS 2 и CUDA
+RUN apt-get update && apt-get install -y \
+    libcudnn8 \
+    libcudnn8-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 CMD ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
