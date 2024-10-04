@@ -9,8 +9,10 @@ WORKDIR /app/ros2_ws
 # ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
 
+
 # Install Base packages
-RUN apt-get update \ 
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/sbsa/7fa2af80.pub \ 
+    && apt-get update \ 
     && apt-get install -y --no-install-recommends \
     tzdata \
     build-essential \
