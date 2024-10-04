@@ -1,0 +1,15 @@
+services:
+  grant_ros_container:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ros2_foxy_grant
+    container_name: ros2_foxy_container
+    network_mode: host
+    restart: unless-stopped
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    volumes:
+      - ./src:/apps/ros2_ws/src
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp

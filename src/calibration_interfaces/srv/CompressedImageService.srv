@@ -1,0 +1,5 @@
+# Пустое тело запрос
+---
+sensor_msgs/CompressedImage[] images
+bool status
+string msg

@@ -1,0 +1,9 @@
+/.vscode
+/build
+/docker
+/install
+/log
+
+/src/calibration/calibration_images/*
+
+setup.bash

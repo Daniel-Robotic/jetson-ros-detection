@@ -1,0 +1,4 @@
+int16[2] chessboard_size
+int8 convolution_size
+---
+CalibrationData calibration_info
