@@ -4,9 +4,13 @@ FROM amd64/ubuntu:20.04
 WORKDIR /app/ros2_ws
 
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+ENV TZ=Asia/Vladivostok
+
+RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
 
 # Install Base packages
 RUN apt-get update && apt-get install -y \
+    tzdata \
     python3-pip \
     python3-dev \
     git \
@@ -24,6 +28,7 @@ RUN add-apt-repository universe \
         ros-foxy-ros-base \
         python3-argcomplete \
         ros-dev-tools \
+        ros-foxy-rmw-cyclonedds-cpp \
     && rm -rf /var/lib/apt/lists/* \
     && /bin/bash -c "source /opt/ros/foxy/setup.bash"
 
