@@ -30,7 +30,7 @@ RUN apt-get update && \
 
 # Скачиваем и устанавливаем CUDA Toolkit
 RUN apt-get update && apt-get install -y \
-    cuda-toolkit-10-2 \
+    cuda-toolkit-* \
     && rm -rf /var/lib/apt/lists/*
 
     # Устанавливаем необходимые зависимости для ROS 2 и CUDA
