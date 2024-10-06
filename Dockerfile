@@ -46,7 +46,7 @@ RUN pip3 install --upgrade pip && \
     pip3 install \ 
         colcon-common-extensions \
         pyrealsense2 \
-        numpy
+        ultralytics
 
 COPY ./src /app/ws_ros2/
 
