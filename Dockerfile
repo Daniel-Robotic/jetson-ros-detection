@@ -39,11 +39,13 @@ RUN apt-get update && apt-get install -y \
     libcudnn8-dev \
     ros-foxy-librealsense2* \
     ros-foxy-realsense2-* \
+    python3-pip \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Установка python библио
-RUN pip install --upgrade pip && \
-    pip install \ 
+RUN pip3 install --upgrade pip && \
+    pip3 install \ 
         colcon-common-extensions \
         pyrealsense2 \
         ultralytics
