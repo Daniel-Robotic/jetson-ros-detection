@@ -44,7 +44,14 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем pyrealsense2 через apt
-RUN apt-get update && apt-get install -y librealsense2-dev librealsense2-utils
+RUN git clone https://github.com/IntelRealSense/librealsense.git /tmp/librealsense && \
+    cd /tmp/librealsense && \
+    mkdir build && cd build && \
+    cmake .. && \
+    make -j$(nproc) && \
+    make install && \
+    ldconfig && \
+    rm -rf /tmp/librealsense
 
 # Установка python библиотек
 RUN pip3 install --upgrade pip && \
