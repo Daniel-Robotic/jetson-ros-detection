@@ -48,7 +48,8 @@ RUN pip3 install --upgrade pip && \
     pip3 install \ 
         colcon-common-extensions \
         pyrealsense2 \
-        torch torchvision torchaudio
+        torch torchvision torchaudio && \
+    pip3 install numpy --upgrade
 
 COPY ./src /app/ws_ros2/
 
