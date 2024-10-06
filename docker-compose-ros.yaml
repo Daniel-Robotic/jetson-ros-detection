@@ -13,5 +13,5 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     devices:
       - /dev/bus/usb:/dev/bus/usb
-    volumes:
-      - ./src:/apps/ros2_ws/src
+    # volumes:
+    #   - ./src:/apps/ros2_ws/src
