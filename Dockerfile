@@ -45,6 +45,8 @@ RUN apt-get update && apt-get install -y \
 
 # Устанавливаем необходимые зависимости для ROS 2
 RUN apt-get update && apt-get install -y \
+    librealsense2-utils \
+    librealsense2-dev \
     ros-foxy-librealsense2* \
     ros-foxy-realsense2-* \
     && rm -rf /var/lib/apt/lists/*
