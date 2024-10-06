@@ -27,16 +27,16 @@ RUN apt-get update && \
     apt-get install -y ros-foxy-desktop python3-argcomplete ros-dev-tools && \
     rm -rf /var/lib/apt/lists/*
 
-# Скачиваем и устанавливаем CUDA Toolkit
+# Скачиваем и устанавливаем CUDA
 RUN apt-get update && apt-get install -y \
-    cuda-toolkit-* \
+    cuda-toolkit-11.4 \
     cuda \
-    && rm -rf /var/lib/apt/lists/*
-
-# Устанавливаем необходимые зависимости для ROS 2 и CUDA
-RUN apt-get update && apt-get install -y \
     libcudnn8 \
     libcudnn8-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Устанавливаем необходимые зависимости для ROS 2
+RUN apt-get update && apt-get install -y \
     ros-foxy-librealsense2* \
     ros-foxy-realsense2-* \
     python3-pip \
