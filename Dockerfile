@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем необходимые зависимости для ROS 2
-RUN apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE \
+RUN curl -fsSL https://raw.githubusercontent.com/IntelRealSense/librealsense/master/scripts/setup_apt.sh | bash - && \
     apt-get update && apt-get install -y \
     librealsense2-utils \
     librealsense2-dev \
