@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     gnupg2 \
     lsb-release \
+    usbutils \
     && rm -rf /var/lib/apt/lists/*
 
 
