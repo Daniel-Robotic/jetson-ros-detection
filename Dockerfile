@@ -39,6 +39,8 @@ RUN curl -fsSL https://raw.githubusercontent.com/IntelRealSense/librealsense/mas
     apt-get update && apt-get install -y \
     ros-foxy-librealsense2* \
     ros-foxy-realsense2-* \
+    python3-dev \ 
+    python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
 
