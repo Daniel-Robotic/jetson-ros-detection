@@ -32,12 +32,6 @@ RUN apt-get update \
     ros-foxy-desktop python3-argcomplete ros-dev-tools \
     && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем необходимые Python-пакеты
-RUN pip3 install --upgrade pip
-
-# Устанавливаем colcon для сборки ROS 2 пакетов
-RUN pip3 install colcon-common-extensions
-
 # Скачиваем и устанавливаем CUDA Toolkit
 RUN apt-get update && apt-get install -y \
     cuda-toolkit-10-2 \
@@ -47,6 +41,20 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
     libcudnn8 \
     libcudnn8-dev \
+    ros-foxy-librealsense2* \
+    ros-foxy-realsense2-* \
     && rm -rf /var/lib/apt/lists/*
+
+# Установка python библио
+RUN pip3 install --upgrade pip && \
+    pip3 install \ 
+        colcon-common-extensions \
+        pyrealsense2 \
+        numpy
+
+COPY ./src /app/ws_ros2/
+
+RUN source /opt/ros/foxy/setup.bash && \
+    colcon build
 
 CMD ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
