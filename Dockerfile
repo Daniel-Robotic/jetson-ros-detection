@@ -16,6 +16,14 @@ RUN apt-get update && apt-get install -y \
     usbutils \
     && rm -rf /var/lib/apt/lists/*
 
+# Обновление версии Python
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.9 python3.9-dev python3.9-venv python3-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update && \
@@ -39,8 +47,6 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
     ros-foxy-librealsense2* \
     ros-foxy-realsense2-* \
-    python3-pip \
-    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 
