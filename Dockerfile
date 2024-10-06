@@ -47,7 +47,7 @@ RUN pip3 install --upgrade pip && \
     pip3 install \ 
         colcon-common-extensions \
         pyrealsense2 \
-        torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu114 \
+        torch==2.4.0+cu114 torchvision==0.19.0+cu114 torchaudio==2.4.0 -f https://download.pytorch.org/whl/torch_stable.html \
     ultralytics
 
 COPY ./src /app/ws_ros2/
