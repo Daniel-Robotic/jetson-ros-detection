@@ -1,10 +1,6 @@
 # Используем базовый образ NVIDIA L4T с поддержкой CUDA
 FROM nvcr.io/nvidia/l4t-base:r32.6.1
 
-# Устанавливаем переменные окружения для ROS 2
-ENV ROS_DISTRO=foxy
-ENV ROS_PYTHON_VERSION=3
-
 # Устанавливаем переменные окружения для CUDA
 ENV PATH=/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
@@ -12,12 +8,15 @@ ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 # Устанавливаем рабочую директорию
 WORKDIR /app/ws_ros2
 
+RUN . /etc/os-release && echo $UBUNTU_CODENAME
+
 # Устанавливаем необходимые зависимости
 RUN apt-get update && apt-get install -y \
     curl \
     gnupg2 \
     lsb-release \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update && \
