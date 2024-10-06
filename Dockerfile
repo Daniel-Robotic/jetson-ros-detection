@@ -44,11 +44,11 @@ RUN apt-get update && apt-get install -y \
 
 # Установка python библиотек
 RUN pip3 install --upgrade pip && \
+    pip3 install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu118 \
     pip3 install \ 
         colcon-common-extensions \
         pyrealsense2 \
-        torch==2.4.0+cu114 torchvision==0.19.0+cu114 torchaudio==2.4.0 -f https://download.pytorch.org/whl/torch_stable.html \
-    ultralytics
+        ultralytics
 
 COPY ./src /app/ws_ros2/
 
