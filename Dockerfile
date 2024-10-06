@@ -43,21 +43,13 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем pyrealsense2 через apt
-RUN git clone https://github.com/IntelRealSense/librealsense.git /tmp/librealsense && \
-    cd /tmp/librealsense && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make -j$(nproc) && \
-    make install && \
-    ldconfig && \
-    rm -rf /tmp/librealsense
 
 # Установка python библиотек
 RUN pip3 install --upgrade pip && \
     pip3 install \ 
         colcon-common-extensions \
-        torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
+        pyrealsense2 \
+    torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
     pip3 install numpy --upgrade
 
 COPY ./src /app/ws_ros2/
