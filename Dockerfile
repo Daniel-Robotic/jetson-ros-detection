@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
     cuda-toolkit-* \
     && rm -rf /var/lib/apt/lists/*
 
-    # Устанавливаем необходимые зависимости для ROS 2 и CUDA
+# Устанавливаем необходимые зависимости для ROS 2 и CUDA
 RUN apt-get update && apt-get install -y \
     libcudnn8 \
     libcudnn8-dev \
@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Установка python библио
+# Установка python библиотек
 RUN pip3 install --upgrade pip && \
     pip3 install \ 
         colcon-common-extensions \
@@ -52,7 +52,7 @@ RUN pip3 install --upgrade pip && \
 
 COPY ./src /app/ws_ros2/
 
-RUN source /opt/ros/foxy/setup.bash && \
-    colcon build
+# Build project
+RUN bash -c "source /opt/ros/foxy/setup.bash && colcon build"
 
 CMD ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
