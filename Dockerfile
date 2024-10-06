@@ -51,9 +51,9 @@ RUN apt-get update && \
 
 # Установка python библиотек
 RUN pip3 install pyrealsense2 \
-        colcon-common-extensions
-    # torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
-    # pip3 install numpy --upgrade
+        colcon-common-extensions \
+        torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
+        pip3 install numpy --upgrade
 
 COPY ./src /app/ws_ros2/
 
