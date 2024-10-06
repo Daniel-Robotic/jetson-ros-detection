@@ -30,6 +30,7 @@ RUN apt-get update && \
 # Скачиваем и устанавливаем CUDA Toolkit
 RUN apt-get update && apt-get install -y \
     cuda-toolkit-* \
+    cuda \
     && rm -rf /var/lib/apt/lists/*
 
 # Устанавливаем необходимые зависимости для ROS 2 и CUDA
@@ -44,11 +45,11 @@ RUN apt-get update && apt-get install -y \
 
 # Установка python библиотек
 RUN pip3 install --upgrade pip && \
-    pip3 install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118 \
+    pip3 install  \
     pip3 install \ 
         colcon-common-extensions \
         pyrealsense2 \
-        ultralytics
+        torch torchvision torchaudio
 
 COPY ./src /app/ws_ros2/
 
