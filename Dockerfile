@@ -1,5 +1,5 @@
 # Используем базовый образ NVIDIA L4T с поддержкой CUDA
-FROM nvcr.io/nvidia/l4t-base:r35.4.1
+FROM nvcr.io/nvidia/l4t-base:35.4.1
 
 # Устанавливаем переменные окружения для CUDA
 ENV PATH=/usr/local/cuda/bin:${PATH}
