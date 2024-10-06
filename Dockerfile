@@ -43,11 +43,13 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
+# Устанавливаем pyrealsense2 через apt
+RUN apt-get update && apt-get install -y librealsense2-dev librealsense2-utils
+
 # Установка python библиотек
 RUN pip3 install --upgrade pip && \
     pip3 install \ 
         colcon-common-extensions \
-        pyrealsense2 \
         torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
     pip3 install numpy --upgrade
 
