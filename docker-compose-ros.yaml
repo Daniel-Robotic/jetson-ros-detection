@@ -13,5 +13,12 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     devices:
       - /dev/bus/usb:/dev/bus/usb
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     # volumes:
     #   - ./src:/apps/ros2_ws/src
