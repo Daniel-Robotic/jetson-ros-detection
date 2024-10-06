@@ -8,8 +8,6 @@ ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 # Устанавливаем рабочую директорию
 WORKDIR /app/ws_ros2
 
-RUN . /etc/os-release && echo $UBUNTU_CODENAME
-
 # Устанавливаем необходимые зависимости
 RUN apt-get update && apt-get install -y \
     curl \
@@ -48,7 +46,8 @@ RUN pip3 install --upgrade pip && \
     pip3 install \ 
         colcon-common-extensions \
         pyrealsense2 \
-        ultralytics
+        torch torchvision torchaudio \
+    ultralytics
 
 COPY ./src /app/ws_ros2/
 
