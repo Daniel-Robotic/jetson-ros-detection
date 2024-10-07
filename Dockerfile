@@ -18,7 +18,29 @@ RUN apt-get update && \
     apt-get install -y \
         curl \
         gnupg2 \
-        usbutils
+        usbutils \
+        build-essential \
+        cmake \
+        git \
+        wget \
+        unzip \
+        yasm \
+        pkg-config \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff-dev \
+        libavcodec-dev \
+        libavformat-dev \
+        libswscale-dev \
+        libv4l-dev \
+        libxvidcore-dev \
+        libx264-dev \
+        libgtk-3-dev \
+        libatlas-base-dev \
+        gfortran \
+        python3-dev \
+        python3-numpy \
+        python3-pytest
         # python3-pip python3-dev \
         # cuda \
         # nvidia-tensorrt
