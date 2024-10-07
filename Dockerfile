@@ -18,7 +18,7 @@ RUN apt-get update && \
     apt-get install -y \
         curl \
         gnupg2 \
-        usbutils \
+        usbutils
         # python3-pip python3-dev \
         # cuda \
         # nvidia-tensorrt
