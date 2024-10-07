@@ -17,25 +17,23 @@ RUN apt-get update && \
     apt-get install -y \
         curl \
         gnupg2 \
-        usbutils \
-    && rm -rf /var/lib/apt/lists/*
+        usbutils
+
+# Удаляем Python 3.8
+RUN apt-get remove -y python3.8 python3.8-*
 
 # Устанавливаем python3.9
 RUN apt-get update && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get install -y python3.9 python3.9-dev python3.9-venv python3-pip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean
 
 # Скачиваем и устанавливаем CUDA
 RUN apt-get update && \
     apt-get install -y \
         cuda \
-        # libcudnn8 \
-        # libcudnn8-dev \
-        nvidia-tensorrt \
-    && rm -rf /var/lib/apt/lists/*
+        nvidia-tensorrt
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update && \
@@ -43,7 +41,6 @@ RUN apt-get update && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
     apt-get update && \
     apt-get install -y \ 
-        python3-pip \
         ros-foxy-desktop \
         python3-argcomplete && \
     rm -rf /var/lib/apt/lists/*
