@@ -17,7 +17,10 @@ RUN apt-get update && \
     apt-get install -y \
         curl \
         gnupg2 \
-        usbutils
+        usbutils \
+        python3-pip python3-dev \
+        cuda \
+        nvidia-tensorrt \
 
 # # Устанавливаем python3.9
 # RUN apt-get update && \
@@ -26,12 +29,6 @@ RUN apt-get update && \
 #     apt-get update && \
 #     apt-get install -y python3.9 python3.9-dev python3.9-venv python3-pip && \
 #     apt-get clean
-
-# Скачиваем и устанавливаем CUDA
-RUN apt-get update && \
-    apt-get install -y \
-        cuda \
-        nvidia-tensorrt
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update && \
@@ -45,8 +42,7 @@ RUN apt-get update && \
 
 
 # Установка python библиотек
-RUN apt install -y python3-pip python3-dev && \
-    pip3 install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 && \
+RUN pip3 install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu118 && \
     pip3 install numpy --upgrade && \
     pip3 install pyrealsense2 \
         colcon-common-extensions
