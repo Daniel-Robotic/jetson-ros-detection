@@ -19,12 +19,10 @@ RUN apt-get update && \
         gnupg2 \
         usbutils
 
-# Удаляем Python 3.8
-RUN apt-get remove -y python3.8 python3.8-*
-
 # Устанавливаем python3.9
 RUN apt-get update && \
     add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get remove -y python3.8 python3.8-* && \
     apt-get update && \
     apt-get install -y python3.9 python3.9-dev python3.9-venv python3-pip && \
     apt-get clean
