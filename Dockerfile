@@ -20,7 +20,7 @@ RUN apt-get update && \
         usbutils \
         python3-pip python3-dev \
         cuda \
-        nvidia-tensorrt \
+        nvidia-tensorrt
 
 # # Устанавливаем python3.9
 # RUN apt-get update && \
