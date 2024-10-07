@@ -1,85 +1,25 @@
 # Используем базовый образ NVIDIA L4T с поддержкой CUDA
-# FROM nvcr.io/nvidia/l4t-base:35.4.1
-FROM ultralytics/ultralytics:latest-jetson-jetpack5
+FROM nvcr.io/nvidia/l4t-base:r35.3.1
 
-# Устанавливаем переменные окружения для CUDA
-# ENV PATH=/usr/local/cuda/bin:${PATH}
-# ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+# Настройка переменных окружения
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    ROS_DISTRO=foxy
 
-# Устанавливаем рабочую директорию
-WORKDIR /app/ws_ros2
+# Установка зависимостей
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    ros-foxy-desktop \
+    && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем необходимые зависимости
-RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    apt-get update && \
-    add-apt-repository universe && \
-    apt-get update && \
-    apt-get install -y \
-        curl \
-        gnupg2 \
-        usbutils \
-        build-essential \
-        cmake \
-        git \
-        wget \
-        unzip \
-        yasm \
-        pkg-config \
-        libjpeg-dev \
-        libpng-dev \
-        libtiff-dev \
-        libavcodec-dev \
-        libavformat-dev \
-        libswscale-dev \
-        libv4l-dev \
-        libxvidcore-dev \
-        libx264-dev \
-        libgtk-3-dev \
-        libatlas-base-dev \
-        gfortran \
-        python3-pip \
-        python3-dev \
-        python3-numpy \
-        python3-pytest
-# Clean up APT cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Increase Git buffer size
-RUN git config --global http.postBuffer 104857600
-
-# Clone OpenCV repository
-RUN git clone https://github.com/opencv/opencv.git
-
-# Build and install OpenCV from source
-RUN cd opencv && \
-    mkdir build && \
-    cd build && \
-    cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local .. && \
-    make -j$(nproc) && \
-    make install && \
-    ldconfig && \
-    cd ../.. && \
-    rm -rf opencv
-
-# Устанавливаем ROS 2 Foxy
-RUN apt-get update && \
-    curl -sL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
-    apt-get update && \
-    apt-get install -y \ 
-        ros-foxy-desktop \
-        python3-argcomplete && \
-    rm -rf /var/lib/apt/lists/*
-
-
-# Установка python библиотек
-# RUN pip3 install networkx==2.8.8 && \ 
-    # pip3 install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118 && \
-# RUN pip3 install torch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 && \
-    # pip3 install numpy --upgrade && \
 RUN pip3 install pyrealsense2 \
+                 torch torchvision torchaudio \
                  colcon-common-extensions
+
+# Установка дополнительных пакетов ROS Foxy
+RUN source /opt/ros/foxy/setup.bash && \
+    apt-get update && apt-get install -y \
+    ros-foxy-rmw-cyclonedds-cpp
 
 # Копирования
 COPY ./src /app/ws_ros2/
@@ -87,4 +27,4 @@ COPY ./src /app/ws_ros2/
 # Сборка скопированного проекта
 RUN bash -c "source /opt/ros/foxy/setup.bash && colcon build"
 
-CMD ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
+ENTRYPOINT ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
