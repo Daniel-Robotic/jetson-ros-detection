@@ -1,5 +1,5 @@
 # Используем базовый образ NVIDIA L4T с поддержкой CUDA
-FROM nvcr.io/nvidia/l4t-base:r36.2.0
+FROM nvcr.io/nvidia/l4t-base:35.4.1
 
 # Устанавливаем переменные окружения для CUDA
 ENV PATH=/usr/local/cuda/bin:${PATH}
@@ -13,39 +13,36 @@ RUN apt-get update && \
     apt-get install -y software-properties-common && \
     apt-get update && \
     add-apt-repository universe && \
-    add-apt-repository ppa:graphics-drivers/ppa && \
     apt-get update && \
     apt-get install -y \
         curl \
         gnupg2 \
         usbutils \
         python3-pip python3-dev \
-        nvidia-l4t-core \
         cuda \
         nvidia-tensorrt
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update && \
-curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
+    curl -sL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
     apt-get update && \
     apt-get install -y \ 
-        ros-humble-desktop \
+        ros-foxy-desktop \
         python3-argcomplete && \
     rm -rf /var/lib/apt/lists/*
 
 
 # Установка python библиотек
-RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
+RUN pip3 install torch==2.1.1 torchvision==0.16.1 torchaudio==2.1.1 --index-url https://download.pytorch.org/whl/cu118 && \
     pip3 install numpy --upgrade && \
     pip3 install pyrealsense2 \
-                 colcon-common-extensions
+        colcon-common-extensions
 
-# Копирования файлов
+# Копирования
 COPY ./src /app/ws_ros2/
 
 # Сборка скопированного проекта
-RUN bash -c "source /opt/ros/humble/setup.bash && colcon build"
+RUN bash -c "source /opt/ros/foxy/setup.bash && colcon build"
 
-# Заупск проекта
-CMD ["bash", "-c", "source /opt/ros/humble/setup.bash && ros2 run demo_nodes_cpp talker"]
+CMD ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
