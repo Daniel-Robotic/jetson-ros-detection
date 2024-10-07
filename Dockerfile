@@ -1,9 +1,10 @@
 # Используем базовый образ NVIDIA L4T с поддержкой CUDA
-FROM nvcr.io/nvidia/l4t-base:35.4.1
+# FROM nvcr.io/nvidia/l4t-base:35.4.1
+FROM ultralytics/ultralytics:latest-jetson-jetpack5
 
 # Устанавливаем переменные окружения для CUDA
-ENV PATH=/usr/local/cuda/bin:${PATH}
-ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+# ENV PATH=/usr/local/cuda/bin:${PATH}
+# ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 
 # Устанавливаем рабочую директорию
 WORKDIR /app/ws_ros2
@@ -18,9 +19,9 @@ RUN apt-get update && \
         curl \
         gnupg2 \
         usbutils \
-        python3-pip python3-dev \
-        cuda \
-        nvidia-tensorrt
+        # python3-pip python3-dev \
+        # cuda \
+        # nvidia-tensorrt
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update && \
@@ -36,10 +37,10 @@ RUN apt-get update && \
 # Установка python библиотек
 # RUN pip3 install networkx==2.8.8 && \ 
     # pip3 install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118 && \
-RUN pip3 install torch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 && \
-    pip3 install numpy --upgrade && \
-    pip3 install pyrealsense2 \
-        colcon-common-extensions
+# RUN pip3 install torch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 && \
+    # pip3 install numpy --upgrade && \
+RUN pip3 install pyrealsense2 \
+                 colcon-common-extensions
 
 # Копирования
 COPY ./src /app/ws_ros2/
