@@ -41,9 +41,18 @@ RUN apt-get update && \
         python3-pip \
         python3-dev \
         python3-numpy \
-        python3-pytest && \
-    git clone https://github.com/opencv/opencv.git && \
-    cd opencv && \
+        python3-pytest
+# Clean up APT cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Increase Git buffer size
+RUN git config --global http.postBuffer 104857600
+
+# Clone OpenCV repository
+RUN git clone https://github.com/opencv/opencv.git
+
+# Build and install OpenCV from source
+RUN cd opencv && \
     mkdir build && \
     cd build && \
     cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local .. && \
@@ -51,11 +60,7 @@ RUN apt-get update && \
     make install && \
     ldconfig && \
     cd ../.. && \
-    rm -rf opencv \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-        # python3-pip python3-dev \
-        # cuda \
-        # nvidia-tensorrt
+    rm -rf opencv
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update && \
