@@ -13,6 +13,7 @@ RUN apt-get update && \
     apt-get install -y software-properties-common && \
     apt-get update && \
     add-apt-repository universe && \
+    add-apt-repository ppa:graphics-drivers/ppa && \
     apt-get update && \
     apt-get install -y \
         curl \
