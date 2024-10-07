@@ -38,9 +38,20 @@ RUN apt-get update && \
         libgtk-3-dev \
         libatlas-base-dev \
         gfortran \
+        python3-pip \
         python3-dev \
         python3-numpy \
         python3-pytest && \
+    git clone https://github.com/opencv/opencv.git && \
+    cd opencv && \
+    mkdir build && \
+    cd build && \
+    cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local .. && \
+    make -j$(nproc) && \
+    make install && \
+    ldconfig && \
+    cd ../.. && \
+    rm -rf opencv \
     apt-get clean && rm -rf /var/lib/apt/lists/*
         # python3-pip python3-dev \
         # cuda \
