@@ -36,7 +36,7 @@ RUN apt-get update && \
 # Установка python библиотек
 # RUN pip3 install networkx==2.8.8 && \ 
     # pip3 install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118 && \
-RUN pip3 install torch==1.10.0 torchvision==0.11.1 torchaudio==0.10.0 -f https://download.pytorch.org/whl/cu114/torch_stable.html && \
+RUN pip3 install torch==1.12.1+cu114 torchvision==0.13.1+cu114 torchaudio==0.12.1+cu114 -f https://download.pytorch.org/whl/cu114/torch_stable.html && \
     pip3 install numpy --upgrade && \
     pip3 install pyrealsense2 \
         colcon-common-extensions
