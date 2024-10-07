@@ -20,6 +20,7 @@ RUN apt-get update && \
         gnupg2 \
         usbutils \
         python3-pip python3-dev \
+        nvidia-l4t-core \
         cuda \
         nvidia-tensorrt
 
