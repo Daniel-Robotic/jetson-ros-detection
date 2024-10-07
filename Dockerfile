@@ -1,5 +1,5 @@
 # Используем базовый образ NVIDIA L4T с поддержкой CUDA
-FROM nvcr.io/nvidia/l4t-base:r35.3.1
+FROM nvcr.io/nvidia/l4t-base:35.3.1
 
 # Настройка переменных окружения
 ENV LANG=C.UTF-8 \
