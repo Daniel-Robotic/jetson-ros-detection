@@ -32,13 +32,13 @@ RUN apt-get update && \
         libswscale-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY torch-v2.1.whl /tmp/
+COPY torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl /tmp/
 COPY torchvision/ /tmp/torchvision/
 
 # Установка PyToroch с поддержкой GPU для Jetson
 RUN pip3 install --upgrade pip && \
     pip3 install pyrealsense2 && \
-    pip3 install /tmp/torch-v2.1.whl && \
+    pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl && \
     python3 /tmp/torchvision/setup.py install --user
 
 # Установка отдельных комронентов ROS
