@@ -33,7 +33,7 @@ COPY torch-v2.1 /tmp/
 RUN git clone --branch v0.16.1 https://github.com/pytorch/vision /tmp/torchvision/ && \
     pip3 install --upgrade pip && \
     pip3 install pyrealsense2 && \
-    pip3 install /tmp/torch-v2.1 && \
+    pip3 install /tmp/torch-v2.1.whl && \
     python3 /tmp/torchvision/setup.py install --user
 
 
