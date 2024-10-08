@@ -6,7 +6,7 @@ RUN apt-get update && \
         python3-pip \
         python3-dev \
         python3-colcon-common-extensions \
-        build-eesential \
+        build-esential \
         curl \
         git \
     && rm -rf /var/lib/apt/lists/*
