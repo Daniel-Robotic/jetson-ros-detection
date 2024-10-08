@@ -49,7 +49,7 @@ COPY torchvision/ /tmp/torchvision/
 # Установка PyToroch с поддержкой GPU для Jetson
 RUN pip3 install --upgrade pip && \
     pip3 install pyrealsense2 colcon-common-extensions && \
-    pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl && \
+    pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
     # python3 /tmp/torchvision/setup.py install --user
 
 COPY ./src /app/ws_ros2/
