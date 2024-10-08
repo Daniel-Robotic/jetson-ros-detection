@@ -27,7 +27,7 @@ RUN apt-get update && \
         libswscale-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY torch-v2.1 /tmp/
+COPY torch-v2.1.whl /tmp/
 
 # Установка PyToroch с поддержкой GPU для Jetson
 RUN git clone --branch v0.16.1 https://github.com/pytorch/vision /tmp/torchvision/ && \
