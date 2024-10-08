@@ -1,6 +1,11 @@
 # Используем базовый образ NVIDIA L4T с поддержкой CUDA
 FROM arm64v8/ros:foxy-ros-base-focal
 
+# Команды перед исполнением Dockerfile
+# git-lfs
+# git lfs install
+# git clone
+
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
     ROS_DISTRO=foxy \
