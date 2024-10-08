@@ -32,7 +32,8 @@ RUN apt-get update && \
         usbutils \
         python3-pip python3-dev \
         cuda \
-        nvidia-tensorrt
+        nvidia-tensorrt \
+        libopenblas-dev
 
 # Устанавливаем ROS 2 Foxy
 RUN apt-get update && \
@@ -50,7 +51,7 @@ RUN pip3 install --upgrade pip && \
     pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl && \
     python3 /tmp/torchvision/setup.py install --user
 
-    
+
 COPY ./src /app/ws_ros2/
 
 # Сборка скопированного проекта
