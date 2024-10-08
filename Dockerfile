@@ -37,8 +37,6 @@ RUN git config --global http.postBuffer 104857600 && \
     pip3 install /tmp/torch-v2.1.whl && \
     python3 /tmp/torchvision/setup.py install --user
 
-
-
 # Установка отдельных комронентов ROS
 RUN apt-get update && \
     apt-get install -y \
