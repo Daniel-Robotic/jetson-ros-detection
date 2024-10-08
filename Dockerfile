@@ -11,10 +11,9 @@ ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
     ROS_DISTRO=foxy \
     BUILD_VERSION=0.16.1 \
-    PATH=/usr/local/cuda/bin:${PATH} \
-    LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+    PATH=/usr/local/cuda/bin:${PATH}
     
-WORKDIR /app/ws_ros2
+WORKDIR /app/ros2_ws
 
 # Устанавливаем необходимые зависимости
 RUN apt-get update && \
@@ -39,22 +38,25 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y \ 
         ros-foxy-desktop \
-        python3-argcomplete && \
+        python3-argcomplete \
+        ros-foxy-librealsense2* \
+        ros-foxy-realsense2-* && \
     rm -rf /var/lib/apt/lists/*
 
 # Копирования
 COPY torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl /tmp/
-COPY torchvision/ /tmp/torchvision/
 
 # Установка PyToroch с поддержкой GPU для Jetson
 RUN pip3 install --upgrade pip && \
     pip3 install pyrealsense2 colcon-common-extensions && \
-    pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
-    # python3 /tmp/torchvision/setup.py install --user
+    pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl && \
+    pip3 install git+https://github.com/pytorch/vision.git@release/0.16
 
-COPY ./src /app/ws_ros2/
+COPY ./src /app/ros2_ws
 
 # Сборка скопированного проекта
-RUN bash -c "source /opt/ros/foxy/setup.bash && colcon build"
+RUN bash -c "source /opt/ros/foxy/setup.bash && colcon build" && \
+    rm -r build log src /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
 
-ENTRYPOINT ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
+# ENTRYPOINT ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
+ENTRYPOINT [ "bash", "-c", "source /app/ros2_ws/install/setup.bash && ros2 run test_packages talker" ]
