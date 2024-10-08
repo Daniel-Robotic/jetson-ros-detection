@@ -44,15 +44,13 @@ RUN apt-get update && \
 
 # Копирования
 COPY torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl /tmp/
-# COPY torchvision/ /tmp/torchvision/
+COPY torchvision/ /tmp/torchvision/
 
 # Установка PyToroch с поддержкой GPU для Jetson
-RUN git config --global http.postBuffer 104857600 && \
-    git clone --branch v${BUILD_VERSION} https://github.com/pytorch/vision /tmp/torchvision/ && \
-    pip3 install --upgrade pip && \
+RUN pip3 install --upgrade pip && \
     pip3 install pyrealsense2 && \
-    pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl && \
-    python3 /tmp/torchvision/setup.py install --user
+    pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
+    # python3 /tmp/torchvision/setup.py install --user
 
 COPY ./src /app/ws_ros2/
 
