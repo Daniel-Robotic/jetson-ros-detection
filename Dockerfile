@@ -40,7 +40,7 @@ RUN wget https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/to
 # Установка отдельных комронентов ROS
 RUN apt-get update && \
     apt-get install -y \
-        ros-foxy=rmw-cyclonedds-cpp \
+        ros-foxy-rmw-cyclonedds-cpp \
         ros-foxy-desktop \
         ros-foxy-dev \
     && rm -rf /var/lib/apt/lists/*
