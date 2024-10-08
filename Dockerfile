@@ -14,8 +14,8 @@ RUN apt-get update && \
 # Установка PyToroch с поддержкой GPU для Jetson
 RUN pip3 install --upgrade pip && \
     pip3 install pyrealsense2 && \
-    pip3 install torch==1.14.0a0+nv23.04 \
-                 torchvision==0.15.0a0+nv23.04 \
+    pip3 install torch==1.13.0+nv22.12 \
+                 torchvision==0.14.0+nv22.12 \
                 --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v502
 
 
