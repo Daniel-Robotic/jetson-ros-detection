@@ -30,7 +30,8 @@ RUN apt-get update && \
 COPY torch-v2.1.whl /tmp/
 
 # Установка PyToroch с поддержкой GPU для Jetson
-RUN git clone --branch v0.16.1 https://github.com/pytorch/vision /tmp/torchvision/ && \
+RUN git config --global http.postBuffer 104857600 && \
+    git clone --branch v0.16.1 https://github.com/pytorch/vision /tmp/torchvision/ && \
     pip3 install --upgrade pip && \
     pip3 install pyrealsense2 && \
     pip3 install /tmp/torch-v2.1.whl && \
