@@ -16,7 +16,7 @@ RUN pip3 install --upgrade pip && \
     pip3 install pyrealsense2 && \
     pip3 install torch==1.13.0+nv22.12 \
                  torchvision==0.14.0+nv22.12 \
-                --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v502
+                --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v51
 
 
 # Установка отдельных комронентов ROS
