@@ -24,6 +24,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y \
         curl \
+        git \
         gnupg2 \
         usbutils \
         python3-pip python3-dev \
@@ -44,8 +45,6 @@ RUN apt-get update && \
 # Копирования
 COPY torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl /tmp/
 # COPY torchvision/ /tmp/torchvision/
-
-RUN apt-get install -y git
 
 # Установка PyToroch с поддержкой GPU для Jetson
 RUN git config --global http.postBuffer 104857600 && \
