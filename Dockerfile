@@ -30,7 +30,9 @@ RUN apt-get update && \
         libavcodec-dev \ 
         libavformat-dev \ 
         libswscale-dev \
-        cuda \
+        libcusparse-dev \
+        libcublas-dev \
+        libcufft-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl /tmp/
