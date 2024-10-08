@@ -15,7 +15,7 @@ RUN apt-get update && \
 RUN pip3 install --upgrade pip && \
     pip3 install pyrealsense2 && \
     pip3 install torch==1.14.0a0+nv23.04 \
-                 torchvision=0.15.0a0+nv23.04 \
+                 torchvision==0.15.0a0+nv23.04 \
                 --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v502
 
 
