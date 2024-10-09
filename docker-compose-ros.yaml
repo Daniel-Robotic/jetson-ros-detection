@@ -3,20 +3,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ros2_foxy_grant
-    container_name: ros2_foxy_container
+    image: jetson-ros2-pytorch
+    container_name: jetson-ros2-pytorch-container
     network_mode: host
     restart: unless-stopped
+    privileged: true
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-    # volumes:
-    #   - ./src:/apps/ros2_ws/src
