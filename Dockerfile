@@ -43,6 +43,7 @@ RUN apt-get update && \
 
 # Копирования
 COPY torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl /tmp/
+COPY ./vision/* /tmp/vision/
 
 # Установка PyToroch с поддержкой GPU для Jetson
 RUN pip3 install --upgrade pip && \
