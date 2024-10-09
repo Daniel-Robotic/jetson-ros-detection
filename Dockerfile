@@ -50,7 +50,8 @@ RUN pip3 install --upgrade pip && \
     pip3 install --upgrade numpy && \
     pip3 install pyrealsense2 colcon-common-extensions && \
     pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl && \
-    pip3 install git+https://github.com/pytorch/vision.git@release/0.16
+    # pip3 install git+https://github.com/pytorch/vision.git@release/0.16
+    python3 /tmp/vision/setup.py
 
 COPY ./src /app/ros2_ws
 
