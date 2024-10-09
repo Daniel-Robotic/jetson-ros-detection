@@ -53,7 +53,7 @@ RUN pip3 install --upgrade pip && \
     # pip3 install git+https://github.com/pytorch/vision.git@release/0.16
     pip3 install /tmp/vision/
 
-COPY ./src /app/ros2_ws/
+COPY ./src /app/ros2_ws/src/
 
 # Сборка скопированного проекта
 RUN bash -c "source /opt/ros/foxy/setup.bash && colcon build" && \
