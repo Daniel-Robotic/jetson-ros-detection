@@ -38,9 +38,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y \ 
         ros-foxy-desktop \
-        python3-argcomplete \
-        ros-foxy-librealsense2* \
-        ros-foxy-realsense2-* && \
+        python3-argcomplete && \
     rm -rf /var/lib/apt/lists/*
 
 # Копирования
