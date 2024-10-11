@@ -50,14 +50,12 @@ RUN pip3 install --upgrade pip && \
     pip3 install --upgrade numpy && \
     pip3 install pyrealsense2 colcon-common-extensions && \
     pip3 install /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl && \
-    # pip3 install git+https://github.com/pytorch/vision.git@release/0.16
     pip3 install /tmp/vision/
 
+# Добавить git clone и репозиторий кода для jetson docker
 COPY ./src /app/ros2_ws/src/
 
 # Сборка скопированного проекта
 RUN bash -c "source /opt/ros/foxy/setup.bash && colcon build" && \
-    rm -r build log src /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
-
-# ENTRYPOINT ["bash", "-c", "source /opt/ros/foxy/setup.bash && ros2 run demo_nodes_cpp talker"]
+    rm -rf build log src /tmp/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl /tmp/vision
 ENTRYPOINT [ "bash", "-c", "source /app/ros2_ws/install/setup.bash && ros2 run test_packages talker" ]
