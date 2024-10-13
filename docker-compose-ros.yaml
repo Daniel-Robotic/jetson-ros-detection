@@ -12,13 +12,13 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     privileged: true
-  devices:
-    - "/dev/HID-SENSOR-2000e1.4.auto:/dev/HID-SENSOR-2000e1.4.auto"  # Поменять для своего устройства
-    - "/dev/iio:device0:/dev/iio:device0"
-    - "/dev/iio:device1:/dev/iio:device1"
-    - "/dev/video0:/dev/video0"
-    - "/dev/video1:/dev/video1"
-    - "/dev/video2:/dev/video2"
-    - "/dev/video3:/dev/video3"
-    - "/dev/video5:/dev/video5"
-    - "/dev/video5:/dev/video5"
+    devices:
+      - "/dev/HID-SENSOR-2000e1.4.auto:/dev/HID-SENSOR-2000e1.4.auto"  # Поменять для своего устройства
+      - "/dev/iio:device0:/dev/iio:device0"
+      - "/dev/iio:device1:/dev/iio:device1"
+      - "/dev/video0:/dev/video0"
+      - "/dev/video1:/dev/video1"
+      - "/dev/video2:/dev/video2"
+      - "/dev/video3:/dev/video3"
+      - "/dev/video5:/dev/video5"
+      - "/dev/video5:/dev/video5"
