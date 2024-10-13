@@ -1,8 +1,3 @@
-# Команды перед исполнением Dockerfile
-# git-lfs
-# git lfs install
-# git clone
-
 # Используем базовый образ NVIDIA L4T с поддержкой CUDA
 FROM nvcr.io/nvidia/l4t-base:35.4.1
 
